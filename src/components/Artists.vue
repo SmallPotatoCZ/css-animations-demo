@@ -1,17 +1,17 @@
 <template>
   <div class="artists">
-    <h4 class="title">Artists</h4>
-    <Category title="Trending Now" :artists="trending" />
-    <Category title="Popular" :artists="popular" />
+    <h4 class="title">文章</h4>
+    <Category title="最热" :artists="trending"/>
+    <Category title="推荐" :artists="popular"/>
   </div>
 </template>
 
 <script>
-import Category from './Category'
-import artists from '../data/artists'
+import Category from "./Category";
+import artists from "../data/artists";
 
 export default {
-  name: 'artists',
+  name: "artists",
 
   components: { Category },
 
@@ -19,24 +19,27 @@ export default {
     return {
       trending: artists.filter(a => [1, 2, 3, 4].includes(a.id)),
       popular: artists.filter(a => [5, 6].includes(a.id))
-    }
+    };
   },
 
   beforeMount() {
-    if (!this.$route.params.id) return
+    if (!this.$route.params.id) return;
 
-    const rootEl = document.documentElement
-    const { top, left } = this.$route.params.position
+    const rootEl = document.documentElement;
+    const { top, left } = this.$route.params.position;
     // sidebar width + left padding = 360
-    const offsetLeft = window.innerWidth > 768 ? 360 : 100
+    const offsetLeft = window.innerWidth > 768 ? 360 : 100;
     // padding from top
-    const offsetTop = 30
-    const x = -(left - offsetLeft)
-    const y = -(top - offsetTop)
+    const offsetTop = 30;
+    const x = -(left - offsetLeft);
+    const y = -(top - offsetTop);
 
-    rootEl.style.setProperty('--translate-tile', `translate(${x}px, ${y}px) scale(1.2632)`)
+    rootEl.style.setProperty(
+      "--translate-tile",
+      `translate(${x}px, ${y}px) scale(1.2632)`
+    );
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -56,7 +59,9 @@ export default {
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 
 .main-leave-active {

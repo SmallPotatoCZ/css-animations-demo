@@ -1,57 +1,63 @@
 <template>
   <main class="main">
+    <aside>
+      <Sidebar />
+    </aside>
+
     <section>
       <transition name="main" :duration="{ leave: 800 }">
         <router-view/>
       </transition>
     </section>
 
-    <Player/>
+    <Player />
   </main>
 </template>
 
 <script>
-import Player from "./components/PlayerBtn.vue";
+import Sidebar from './components/Sidebar.vue'
+import Player from './components/Player.vue'
 
 export default {
-  name: "app",
+  name: 'app',
 
   components: {
+    Sidebar,
     Player
   },
 
   data() {
     return {
       tilePosition: {},
-      artistId: null
-    };
+      artistId: null,
+    }
   },
 
   created() {
-    this.$root.$on("gotoTracks", (position, artistId) => {
-      this.tilePosition = position;
-      this.artistId = artistId;
+    this.$root.$on('gotoTracks', (position, artistId) => {
+      this.tilePosition = position
+      this.artistId = artistId
 
       this.$router.push({
-        name: "tracks",
+        name: 'tracks',
         params: {
           id: artistId,
           position: position
         }
-      });
-    });
+      })
+    })
 
-    this.$root.$on("gotoArtists", () => {
+    this.$root.$on('gotoArtists', () => {
       this.$router.push({
-        name: "artists",
+        name: 'artists',
         params: {
           id: this.artistId,
           position: this.tilePosition
         }
-      });
-    });
+      })
+    })
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
